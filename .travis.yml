@@ -1,0 +1,22 @@
+sudo: required
+language: node_js
+node_js:
+  - "stable"
+services:
+  - docker
+before_install:
+  - docker build -t arian/devops-my-app -f Dockerfile.dev .
+script:
+  - docker run -e CI=true arian/devops-my-app npm run test -- --coverage --watchAll=false
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1" ### AWS region of your choice
+  app: "my-app-test" ### Your EB App name
+  env: "prod-env" ### Your EB App environment name
+  bucket_name: "elasticbeanstalk-us-east-1-536501238579" ### S3 bucket name
+  bucket_path: "ebapptest" ### S3 folder name under S3 bucket above
+  on:
+    branch: master
+  access_key_id: "$AWS_ACCESS_KEY"
+  secret_access_key: "$AWS_SECRET_KEY"
