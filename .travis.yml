@@ -5,9 +5,9 @@ node_js:
 services:
   - docker
 before_install:
-  - docker build -t arian/devops-my-app -f Dockerfile.dev .
+  - docker build -t arian/devops-my-gatsby-site -f Dockerfile.dev .
 script:
-  - docker run -e CI=true arian/devops-my-app npm run test -- --coverage --watchAll=false
+  - docker run -e CI=true arian/devops-my-gatsby-site npm run test -- --coverage --watchAll=false
 
 deploy:
   provider: elasticbeanstalk
