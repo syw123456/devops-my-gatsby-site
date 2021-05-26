@@ -7,7 +7,7 @@ services:
 before_install:
   - docker build -t arian/devops-my-gatsby-site -f Dockerfile.dev .
 script:
-  - docker run -e CI=true arian/devops-my-gatsby-site npm run test -- --coverage --watchAll=false
+  - docker run -e CI=true arian/devops-my-gatsby-site npm run clean -- --coverage --watchAll=false
 
 deploy:
   provider: elasticbeanstalk
